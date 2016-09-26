@@ -4,6 +4,14 @@ var morgan = require('morgan');
 var nunjucks = require('nunjucks');
 var bodyParser = require('body-parser');
 var socketio = require('socket.io');
+var wikiRouter = require('./routes/wiki');
+
+// ...
+
+app.use(bodyParser.urlencoded({ extended: true}));
+app.use(bodyParser.json());
+
+app.use('/wiki', wikiRouter);
 
 // point nunjucks to the directory containing templates and turn off caching; configure returns an Environment
 // instance, which we'll want to use to add Markdown support later.
@@ -15,8 +23,7 @@ app.engine('html', nunjucks.render);
 
 app.use(morgan('dev'));
 
-app.use(bodyParser.urlencoded({ extende: true}));
-app.use(bodyParser.json());
+
 
 var server = app.listen(1337, function(){
   console.log('listening on port 1337')
