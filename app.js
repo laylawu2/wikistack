@@ -5,6 +5,7 @@ var nunjucks = require('nunjucks');
 var bodyParser = require('body-parser');
 var socketio = require('socket.io');
 var wikiRouter = require('./routes/wiki');
+var path = require('path');
 
 // ...
 
@@ -44,7 +45,7 @@ models.User.sync({})
 })
 .catch(console.error);
 
-app.use('/static', express.static(__dirname + '/public'));
+app.use(express.static(path.join(__dirname, '/public')));
 
 app.get('/', function(req, res, next){
   res.send('Hello!!!!!')
